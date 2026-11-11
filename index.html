@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PROJECT TRACE — Construction Monitoring Platform</title>
-<link rel="icon" href="assets/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="icon" href="logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
 :root{--bg:#050b18;--panel:#0d1830;--line:#1c2e52;--line2:#2b4474;--ink:#e9effc;--mut:#8fa5cb;--cy:#22d3ee;--bl:#3b82f6;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--vi:#a78bfa;--sl:#94a3b8;--sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font:14px/1.55 var(--sans);background:radial-gradient(900px 520px at 85% -5%,#12356b55,transparent 60%),radial-gradient(700px 500px at -5% 105%,#0b4a6a33,transparent 60%),var(--bg);background-attachment:fixed}
@@ -43,8 +43,8 @@ dl{margin:0}dl div{display:flex;justify-content:space-between;gap:14px;padding:9
 @media print{:root{--ink:#111;--mut:#555;--line:#ccc}body{background:#fff;color:#111}aside,.tb,.noprint,.btn,#boot{display:none!important}.app{display:block}#main{padding:0}.card{background:#fff;border-color:#ccc;box-shadow:none;break-inside:avoid}th{background:#eee;color:#333}td,th{border-color:#ccc}.b{border-color:#999;color:#111;background:#fff}.note{background:#f3f3f3;color:#111}}
 .hero>*,.split>*,.cr>*,.mr>*,.g>*,.card{min-width:0}.folder summary{flex-wrap:wrap}@media(max-width:760px){.ctl{gap:8px;padding:10px}#rw,#ff,#td{display:none}.tele .tl2 b{font-size:30px}}
 </style></head><body>
-<div id="boot"><img src="assets/logo.png" alt=""><b>PROJECT TRACE</b><div class="bl"><i></i></div><span>Initializing monitoring interface…</span></div>
-<div class="app"><aside id="side"><div class="brand"><img src="assets/logo.png" alt="PROJECT TRACE logo"><div class="bt"><b>PROJECT TRACE</b><small>Transparent Reporting and Assessment of Construction Execution</small></div></div><div class="ns">Workspace</div><nav id="nav"></nav><div class="sf"><div class="sfr"><span class="dot"></span><div><b>CAM-01</b><small>CCTV playback mode</small></div></div></div></aside>
+<div id="boot"><img src="logo.png" alt=""><b>PROJECT TRACE</b><div class="bl"><i></i></div><span>Initializing monitoring interface…</span></div>
+<div class="app"><aside id="side"><div class="brand"><img src="logo.png" alt="PROJECT TRACE logo"><div class="bt"><b>PROJECT TRACE</b><small>Transparent Reporting and Assessment of Construction Execution</small></div></div><div class="ns">Workspace</div><nav id="nav"></nav><div class="sf"><div class="sfr"><span class="dot"></span><div><b>CAM-01</b><small>CCTV playback mode</small></div></div></div></aside>
 <main><header class="tb"><button class="btn ic1" data-a="sb" aria-label="Toggle sidebar">☰</button><div class="tt"><h1 id="ttl"></h1><span id="sub" class="mut small"></span></div><span class="pill" id="pill" data-s="idle"><i></i><b>Standby</b></span></header><div id="main" class="pg"></div></main></div>
 <dialog id="dlg"></dialog>
 <script>
@@ -99,12 +99,12 @@ const isDet=e=>e.cat=="Personnel"&&e.ppl!==0;
 const dur=()=>(v&&v.duration)||87;
 /* ===== CCTV PLAYER (one persistent element; every monitoring state is derived from video.currentTime) ===== */
 const vw=document.createElement("div");vw.id="vw";vw.className="stage";vw.dataset.s="idle";
-vw.innerHTML=`<div class="vbox"><video id="cctvPlayer" preload="metadata" playsinline><source src="assets/PROJECT_TRACE_CCTV.mp4" type="video/mp4">Your browser does not support HTML video.</video>
+vw.innerHTML=`<div class="vbox"><video id="cctvPlayer" preload="metadata" playsinline><source src="PROJECT_TRACE_CCTV.mp4" type="video/mp4">Your browser does not support HTML video.</video>
 <div class="hud tl"><span class="rec"><i></i><b id="recT">STANDBY</b></span><span class="cam" id="camId"></span></div>
 <div class="hud tr"><span id="camName"></span><em>CCTV PLAYBACK · PRERECORDED FOOTAGE</em><time id="hudT"></time></div>
 <div class="hud bl"><div class="banner" id="banner"><b>LATEST · --:--</b><span>No events recorded yet</span></div></div>
 <button class="bigplay" id="big" aria-label="Play">▶</button><div class="endc" id="endc" hidden></div>
-<div class="err" id="verr" hidden><b>CCTV file not found at assets/PROJECT_TRACE_CCTV.mp4</b><span class="small mut">Keep the folder structure intact, or select the video manually:</span><input type="file" accept="video/*" id="vf" style="max-width:260px"></div></div>
+<div class="err" id="verr" hidden><b>CCTV file not found at PROJECT_TRACE_CCTV.mp4</b><span class="small mut">Keep the folder structure intact, or select the video manually:</span><input type="file" accept="video/*" id="vf" style="max-width:260px"></div></div>
 <div class="ctl"><button class="rb" id="pp" aria-label="Play or pause">▶</button><button class="gb" id="rw" title="Back 5 seconds">−5s</button><button class="gb" id="ff" title="Forward 5 seconds">+5s</button><span class="mono" id="tc">00:00</span><div class="tlw"><div class="mk" id="mks"></div><input type="range" id="sk" min="0" max="87" step="0.05" value="0" aria-label="Seek"></div><span class="mono" id="td">01:27</span><button class="gb" id="fs" title="Fullscreen">⛶</button></div>`;
 const q=s=>$(s,vw),v=q("video"),sk=q("#sk");
 const toggle=()=>{v.paused?v.play().catch(()=>{}):v.pause()};
